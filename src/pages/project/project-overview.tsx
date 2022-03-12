@@ -1,4 +1,4 @@
-import { Body1, ContainedButton, Headline3, Headline5, Loading, OutlinedButton, SpaceBetween, Subtitle1 } from '@theturkeydev/gobble-lib-react';
+import { Body1, ConfirmationModal, ContainedButton, Headline3, Headline5, Loading, OutlinedButton, SpaceBetween, Subtitle1 } from '@theturkeydev/gobble-lib-react';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -51,6 +51,8 @@ export const ProjectOverview = () => {
 
     const navigate = useNavigate();
 
+    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+
     const [projectInfo, setProjectInfo] = useState<ProjectInfo | null>(null);
     const [versions, setVersions] = useState<readonly Version[]>([]);
     const [page, setPage] = useState(0);
@@ -71,16 +73,7 @@ export const ProjectOverview = () => {
         setPage(old => old + 1);
     };
 
-    const openDeleteProjectModal = () => {
-        if (!projectId)
-            return;
-        //TODO confirm
-        deleteProject(projectId).then(() => {
-            location.href = '/';
-        });
-    };
-
-    if (!projectInfo)
+    if (!projectInfo || !projectId)
         return <Loading />;
 
     return (
@@ -92,7 +85,7 @@ export const ProjectOverview = () => {
                     <DropDownItem onClick={() => navigate(`/project/${projectId}/edit`)}>
                         <Body1>Edit</Body1>
                     </DropDownItem>
-                    <DropDownItem onClick={openDeleteProjectModal}>
+                    <DropDownItem onClick={() => setShowDeleteConfirm(true)}>
                         <Body1>Delete</Body1>
                     </DropDownItem>
                 </ButtonDropdown>
@@ -134,7 +127,19 @@ export const ProjectOverview = () => {
                     <ContainedButton onClick={loadMore}>Load More</ContainedButton>
                 </>
             }
-
+            <ConfirmationModal
+                show={showDeleteConfirm}
+                requestClose={() => setShowDeleteConfirm(false)}
+                text='Are you sure you want to delete this porject?'
+                yesText='Yes'
+                onYesClick={() => {
+                    deleteProject(projectId).then(() => {
+                        location.href = '/';
+                    });
+                }}
+                noText='No'
+                onNoClick={() => setShowDeleteConfirm(false)}
+            />
         </Wrapper >
     );
 };

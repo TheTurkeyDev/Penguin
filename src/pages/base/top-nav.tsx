@@ -1,17 +1,41 @@
-import { NavBar, NavLink } from '@theturkeydev/gobble-lib-react';
+import { CenterContent, NavBar, NavLink, NavText, ToggleSwitch, useThemeContext } from '@theturkeydev/gobble-lib-react';
 import styled from 'styled-components';
 
 const Logo = styled.img`
-    width: 48px;
-    height: 48px;
-    margin: 4px 16px;
+    width: 40px;
+    height: 40px;
+`;
+
+const EndContent = styled.div`
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 8px;
+    align-items: center;
+`;
+
+const NoLabel = styled.div`
+    display: grid;
+    grid-template-columns: auto auto;
 `;
 
 export const TopNav = () => {
+
+    const { theme, setTheme } = useThemeContext();
+    const isDarkTheme = theme === 'dark';
     return (
         <NavBar>
             <Logo src='/res/imgs/logo.png' />
-            <NavLink link='/'>Home</NavLink>
+            <CenterContent>
+                <NavLink link='/'>Home</NavLink>
+            </CenterContent>
+            <EndContent>
+                <NavText>
+                    <i className={`fas fa-${isDarkTheme ? 'moon' : 'sun'}`} />
+                </NavText>
+                <NoLabel>
+                    <ToggleSwitch label='' checked={isDarkTheme} onClick={() => setTheme(isDarkTheme ? 'light' : 'dark')} />
+                </NoLabel>
+            </EndContent>
         </NavBar>
     );
 };
