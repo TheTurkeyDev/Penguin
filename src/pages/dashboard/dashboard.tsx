@@ -19,10 +19,6 @@ const ToolBar = styled.div`
     padding: 8px;
 `;
 
-const ToolBtnText = styled.span`
-    font-size: 1.25em;
-`;
-
 const ProjectsWrapper = styled.div`
     margin: 32px;
     display: flex;
@@ -44,9 +40,7 @@ export const Dashboard = () => {
             <ToolBar>
                 <div />
                 <ContainedButton onClick={() => setVisible(true)}>
-                    <ToolBtnText>
-                        New Project
-                    </ToolBtnText>
+                    New Project
                 </ContainedButton>
             </ToolBar>
             <NewProjectModal show={visible} requestClose={() => setVisible(false)} addNewProject={proj => setProjects(old => [...old, proj])} />

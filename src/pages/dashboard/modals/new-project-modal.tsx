@@ -1,15 +1,16 @@
-import { Input } from '@theturkeydev/gobble-lib-react';
+import { DualOptionModal, Headline4, Input } from '@theturkeydev/gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { createProjects } from '../../../network/network';
-import { DualOptionModal } from '../../../_modules/modal/dual-option-modal';
 import { ProjectType } from '../../project/project-type';
 
 const FormWrapper = styled.div`
     display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px;
     padding: 16px;
-    width: 50%;
     justify-items: center;
+    align-items: center;
     margin-left: auto;
     margin-right: auto;
 `;
@@ -48,7 +49,7 @@ export const NewProjectModal = ({ show, requestClose, addNewProject }: NewProjec
 
     return (
         <DualOptionModal show={show} requestClose={requestClose} primaryText='Create' onPrimaryClick={createProject} secondaryText='Cancel' onSecondaryClick={requestClose}>
-            <h2>Create A New Project</h2>
+            <Headline4>Create A New Project</Headline4>
             <FormWrapper>
                 <Input name='title' label='Title' value={title} onChange={e => updateTitle(e.target.value)} />
                 <Input name='subtitle' label='Subtitle' value={subtitle} onChange={e => setSubtitle(e.target.value)} />

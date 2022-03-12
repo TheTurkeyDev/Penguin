@@ -1,11 +1,10 @@
-import { ContainedButton, Headline3, Loading, OutlinedButton } from '@theturkeydev/gobble-lib-react';
+import { Body1, ContainedButton, Headline3, Headline5, Loading, OutlinedButton, SpaceBetween, Subtitle1 } from '@theturkeydev/gobble-lib-react';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { deleteProject, getProject, getProjectVersions } from '../../network/network';
 import { ButtonDropdown, DropDownItem } from '../../_modules/button-dropdown';
 import { IconButton } from '../../_modules/icon-button';
-import { SpaceBetween } from '../../_modules/space-between';
 import { ProjectInfo } from './project-info';
 import { Version } from './version';
 
@@ -24,7 +23,6 @@ const TableWrapper = styled.table`
 
 const TableHeaderRow = styled.tr`
     height: 64px;
-    font-size: 32px;
 `;
 
 const TableRow = styled.tr`
@@ -37,9 +35,6 @@ const TableRow = styled.tr`
 const THLWarpper = styled.th`
     text-align: left;
     padding-left: 8px;
-`;
-
-const THWarpper = styled.th`
 `;
 
 const TDLWarpper = styled.td`
@@ -95,10 +90,10 @@ export const ProjectOverview = () => {
                 <ButtonDropdown>
                     <IconButton icon='fas fa-ellipsis-v' />
                     <DropDownItem onClick={() => navigate(`/project/${projectId}/edit`)}>
-                        Edit
+                        <Body1>Edit</Body1>
                     </DropDownItem>
                     <DropDownItem onClick={openDeleteProjectModal}>
-                        Delete
+                        <Body1>Delete</Body1>
                     </DropDownItem>
                 </ButtonDropdown>
             </SpaceBetween>
@@ -108,9 +103,11 @@ export const ProjectOverview = () => {
                     <TableWrapper>
                         <thead>
                             <TableHeaderRow>
-                                <THLWarpper>Version</THLWarpper>
+                                <THLWarpper>
+                                    <Headline5>Version</Headline5>
+                                </THLWarpper>
                                 {
-                                    projectInfo.environments.map(e => <THWarpper key={e.id}>{e.name}</THWarpper>)
+                                    projectInfo.environments.map(e => <th key={e.id}><Headline5>{e.name}</Headline5></th>)
                                 }
                             </TableHeaderRow>
                         </thead>
