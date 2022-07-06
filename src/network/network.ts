@@ -75,6 +75,14 @@ export async function createEnvironment(projectId: string, id: string, name: str
     });
 }
 
+export async function getEnvironmentBuildBlocks(projId: string, envId: string): Promise<any | null> {
+    return await fetch(`${getBaseAPIURL()}/projects/${projId}/environment/${envId}/blocks`, getGetParams()).then(response => {
+        if (response.status === 200)
+            return response.json();
+        return null;
+    });
+}
+
 export async function getProjectVersions(id: string, page: number) {
     return await fetch(`${getBaseAPIURL()}/projects/${id}/versions?page=${page}`, getGetParams()).then(response => {
         if (response.status === 200)
